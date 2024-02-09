@@ -1,4 +1,10 @@
+body {
+  padding: 0;
+  margin: 16px;
+}
+
 .List {
+  padding: 0;
   margin: 16px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -11,9 +17,13 @@
   text-align: center;
   color: white;
   border-radius: 30px;
-  border: 1px solid white;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.05);
+  list-style-type: none;
+}
+
+.List_item--selected {
+  border: 4px solid black;
 }
 
 .List__item--navy {
@@ -78,4 +88,61 @@
 
 .List__item--silver {
   background-color: #dddddd;
+}
+
+.Header {
+  display: flex;
+}
+
+.Input {
+  display: flex;
+  height: 40px;
+  border-radius: 30px;
+  padding: 0 10px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.Close__Button {
+  display: flex;
+  width: 40;
+  height: 40;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  color: white;
+  margin-left: 10;
+  font-weight: bold;
+}
+
+.Close__Button--true {
+  background-color: tomato;
+}
+
+.Close__Button--false {
+  background-color: "gray";
+}
+
+.Button {
+  background-color: tomato;
+  border-radius: 30px;
+  border-width: 0px;
+  height: 40px;
+  padding: 0 10px;
+  color: white;
+}
+
+.Button_Options {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.Selected_List {
+  display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
 }

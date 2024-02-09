@@ -1,20 +1,48 @@
-import { FC, Fragment } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  Fragment,
+  Suspense,
+  useCallback,
+  useDeferredValue,
+  useMemo,
+  useState,
+} from "react";
+import { List } from "./screens/List";
+import { ListItemModel } from "./models/ListModel";
+import { Header } from "./ components/Header";
 
-import './style.css';
+interface Props {
+  items: ListItemModel[];
+}
 
-export const App: FC<{ items: any[] }> = ({ items = [] }) => {
+export const App: FC<Props> = ({ items }) => {
+  const [searchValue, setSearchValue] = useState("");
+  const deferredSearchValue = useDeferredValue(searchValue);
+
+  const onChangeSearchValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setSearchValue(event.target.value);
+    },
+    []
+  );
+
+  const onClearSearchValue = useCallback((): void => {
+    setSearchValue("");
+  }, []);
+
+  const list = useMemo((): ListItemModel[] => {
+    return items.filter((item) => item.name.includes(deferredSearchValue));
+  }, [deferredSearchValue]);
+
   return (
     <Fragment>
-      <ul className="List">
-        {items.map((item) => (
-          <li
-            key={item.name}
-            className={`List__item List__item--${item.color}`}
-          >
-            {item.name}
-          </li>
-        ))}
-      </ul>
+      <Header
+        value={searchValue}
+        onChange={onChangeSearchValue}
+        onClear={onClearSearchValue}
+      />
+      <List list={list} />
     </Fragment>
   );
 };
